@@ -44,7 +44,26 @@ class rubiksCube:
             for k in range(self.size):
                 j.append('B')
 
-        self.orientations = {"bottom": self.bottom}
+    def isSolved(self):
+        for i in self.top:
+            if len(set(i)) > 1:
+                return "Not Solved..."
+        for i in self.bottom:
+            if len(set(i)) > 1:
+                return "Not Solved..."
+        for i in self.front:
+            if len(set(i)) > 1:
+                return "Not Solved..."
+        for i in self.left:
+            if len(set(i)) > 1:
+                return "Not Solved..."
+        for i in self.back:
+            if len(set(i)) > 1:
+                return "Not Solved..."
+        for i in self.right:
+            if len(set(i)) > 1:
+                return "Not Solved..."
+        return "Solved!"
 
     def __str__(self):
         printStr = ""
@@ -92,5 +111,9 @@ class rubiksCube:
 
         return printStr
 
-xXx = rubiksCube(3)
+xXx = rubiksCube(2)
 print(xXx)
+print(xXx.isSolved())
+xXx.bottom[0][1] = 'R'
+print(xXx)
+print(xXx.isSolved())
