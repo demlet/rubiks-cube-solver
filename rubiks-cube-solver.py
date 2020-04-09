@@ -47,23 +47,23 @@ class rubiksCube:
     def isSolved(self):
         for i in self.top:
             if len(set(i)) > 1:
-                return "Not Solved..."
+                return False
         for i in self.bottom:
             if len(set(i)) > 1:
-                return "Not Solved..."
+                return False
         for i in self.front:
             if len(set(i)) > 1:
-                return "Not Solved..."
+                return False
         for i in self.left:
             if len(set(i)) > 1:
-                return "Not Solved..."
+                return False
         for i in self.back:
             if len(set(i)) > 1:
-                return "Not Solved..."
+                return False
         for i in self.right:
             if len(set(i)) > 1:
-                return "Not Solved..."
-        return "Solved!"
+                return False
+        return True
 
     def __str__(self):
         printStr = ""
