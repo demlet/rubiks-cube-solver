@@ -55,6 +55,16 @@ class rubiksCube:
                 else:
                     newTopPosition = input("Enter next position: ")
                 self.top[i][j] = newTopPosition
+        print("\nCurrently editing BOTTOM positions. Please input new positions from left to right, top to bottom...")
+        for i in range(self.size):
+            for j in range(self.size):
+                if i == 0 and j == 0:
+                    newTopPosition = input("Enter new top left position: ")
+                elif i == self.size - 1 and j == self.size - 1:
+                    newTopPosition = input("Enter final bottom right position: ")
+                else:
+                    newTopPosition = input("Enter next position: ")
+                self.bottom[i][j] = newTopPosition
 
     def isSolved(self):
         for i in self.top:
@@ -95,16 +105,17 @@ class rubiksCube:
             printStr += '\n'
 
         for i in range(self.size):
-            for j in range(self.size):
-                printStr += str(self.bottom[i][j]) + ' ' # need to change order eventually
+            for j in range(self.size - 1, -1, -1):
+                print(j)
+                printStr += str(self.bottom[abs(i - self.size + 1)][j]) + ' ' # need to change order eventually
             for j in range(self.size):
                 printStr += str(self.left[i][j]) + ' '
             for j in range(self.size):
                 printStr += str(self.top[i][j]) + ' '
             for j in range(self.size):
                 printStr += str(self.right[i][j]) + ' '
-            for j in range(self.size):
-                printStr += str(self.bottom[i][j]) + ' ' # need to change order eventually
+            for j in range(self.size - 1, -1, -1):
+                printStr += str(self.bottom[abs(i - self.size + 1)][j]) + ' ' # need to change order eventually
             printStr += '\n'
 
         for i in range(self.size):
@@ -123,7 +134,7 @@ class rubiksCube:
 
         return printStr
 
-xXx = rubiksCube(3)
+xXx = rubiksCube(2)
 print(xXx)
 print(xXx.isSolved())
 xXx.mixUpCube()
