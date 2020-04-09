@@ -44,6 +44,18 @@ class rubiksCube:
             for k in range(self.size):
                 j.append('B')
 
+    def mixUpCube(self):
+        print("Currently editing TOP positions. Please input new positions from left to right, top to bottom...")
+        for i in range(self.size):
+            for j in range(self.size):
+                if i == 0 and j == 0:
+                    newTopPosition = input("Enter new top left position: ")
+                elif i == self.size - 1 and j == self.size - 1:
+                    newTopPosition = input("Enter final bottom right position: ")
+                else:
+                    newTopPosition = input("Enter next position: ")
+                self.top[i][j] = newTopPosition
+
     def isSolved(self):
         for i in self.top:
             if len(set(i)) > 1:
@@ -111,9 +123,9 @@ class rubiksCube:
 
         return printStr
 
-xXx = rubiksCube(2)
+xXx = rubiksCube(3)
 print(xXx)
 print(xXx.isSolved())
-xXx.bottom[0][1] = 'R'
+xXx.mixUpCube()
 print(xXx)
 print(xXx.isSolved())
