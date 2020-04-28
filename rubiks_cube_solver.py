@@ -44,7 +44,7 @@ class rubiksCube:
             for k in range(self.size):
                 j.append('B')
 
-    def rotateSideClockwise(self, side):
+    def rotateAdjacentSideNeg(self, side):
         currentRing = 0
         while currentRing < self.size // 2:
             # currentTopToRotate = side[currentRing][currentRing:self.size - currentRing]
@@ -78,7 +78,7 @@ class rubiksCube:
             self.left[row] = self.top[row].copy()
             self.top[row] = self.right[row].copy()
             self.right[row] = bottomReversed
-            self.rotateSideClockwise(self.back)
+            self.rotateAdjacentSideNeg(self.back)
         elif row == self.size - 1: #Need to add adjacent side rotation...
             bottomReversed = self.bottom[abs(self.size - 1 - row)].copy()
             bottomReversed.reverse()
