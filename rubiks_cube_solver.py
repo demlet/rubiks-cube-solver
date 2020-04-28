@@ -44,6 +44,32 @@ class rubiksCube:
             for k in range(self.size):
                 j.append('B')
 
+    def rotateSideClockwise(self, side):
+        currentRing = 0
+        while currentRing < self.size // 2:
+            # currentTopToRotate = side[currentRing][currentRing:self.size - currentRing]
+            # currentBottomToRotate = side[self.size - currentRing - 1][currentRing:self.size - currentRing]
+            currentTopToRotate = []
+            for i in range(currentRing, self.size - currentRing):
+                currentTopToRotate.append(side[currentRing][i])
+            print("currentTopToRotate", currentTopToRotate)
+            currentBottomToRotate = []
+            for i in range(currentRing, self.size - currentRing):
+                currentBottomToRotate.append(side[self.size - currentRing - 1][i])
+            print("currentBottomToRotate", currentBottomToRotate)
+            currentLeftToRotate = []
+            for i in range(currentRing, self.size - currentRing):
+                currentLeftToRotate.append(side[abs(i - (self.size - 1))][currentRing])
+            print("currentLeftToRotate", currentLeftToRotate)
+            currentRightToRotate = []
+            for i in range(currentRing, self.size - currentRing):
+                currentRightToRotate.append(side[abs(i - (self.size - 1))][self.size - currentRing - 1])
+            print("currentRightToRotate", currentRightToRotate)
+            for i in range(currentRing, self.size - currentRing):
+                currentRow = side[i][currentRing:self.size - currentRing]
+                print(currentRow)
+            currentRing += 1
+
     def rotateXLeft(self, row):
         if row == 0: #Need to add adjacent side rotation...
             bottomReversed = self.bottom[abs(self.size - 1 - row)].copy()
@@ -52,6 +78,7 @@ class rubiksCube:
             self.left[row] = self.top[row].copy()
             self.top[row] = self.right[row].copy()
             self.right[row] = bottomReversed
+            self.rotateSideClockwise(self.back)
         elif row == self.size - 1: #Need to add adjacent side rotation...
             bottomReversed = self.bottom[abs(self.size - 1 - row)].copy()
             bottomReversed.reverse()
@@ -66,7 +93,6 @@ class rubiksCube:
             self.left[row] = self.top[row].copy()
             self.top[row] = self.right[row].copy()
             self.right[row] = bottomReversed
-
 
     def mixUpCube(self):
         print("Currently editing TOP positions. Please input new positions from left to right, top to bottom (enter \"\\s\" to skip this position, enter \"\\n\" to skip to next side, enter \"\\q\" to stop editing completely)...")
@@ -285,23 +311,16 @@ class rubiksCube:
 
         return printStr
 
-xXx = rubiksCube(3)
-print(xXx)
+xXx = rubiksCube(6)
+xXx.open("myCube6x6.cub")
+# print(xXx)
 # print(xXx.isSolved())
-xXx.mixUpCube()
+# xXx.mixUpCube()
 print(xXx)
 # print(xXx.isSolved())
 # xXx.open("/Users/kelly/Desktop/myCube.txt")
 # print(xXx)
 xXx.rotateXLeft(0)
 print(xXx)
-xXx.rotateXLeft(0)
-print(xXx)
-xXx.rotateXLeft(1)
-print(xXx)
-xXx.rotateXLeft(1)
-print(xXx)
-xXx.rotateXLeft(2)
-print(xXx)
-xXx.rotateXLeft(2)
-print(xXx)
+# xXx.rotateXLeft(0)
+# print(xXx)
