@@ -1,42 +1,36 @@
 class rubiksCube:
     def __init__(self, size):
         self.size = size
-
         self.top = []
         for i in range(self.size):
             self.top.append([])
         for j in self.top:
             for k in range(self.size):
                 j.append('R')
-
         self.bottom = []
         for i in range(self.size):
             self.bottom.append([])
         for j in self.bottom:
             for k in range(self.size):
                 j.append('O')
-
         self.front = []
         for i in range(self.size):
             self.front.append([])
         for j in self.front:
             for k in range(self.size):
                 j.append('Y')
-
         self.left = []
         for i in range(self.size):
             self.left.append([])
         for j in self.left:
             for k in range(self.size):
                 j.append('G')
-
         self.back = []
         for i in range(self.size):
             self.back.append([])
         for j in self.back:
             for k in range(self.size):
                 j.append('W')
-
         self.right = []
         for i in range(self.size):
             self.right.append([])
@@ -44,55 +38,123 @@ class rubiksCube:
             for k in range(self.size):
                 j.append('B')
 
+    def rotateAdjacentSidePos(self, side):
+        currentRing = 0
+        while currentRing < self.size // 2:
+            topRowCopy = []
+            for i in range(currentRing, self.size - currentRing): #temporary storing of top row
+                topRowCopy.append(side[currentRing][i])
+            for i in range(currentRing, self.size - currentRing): #move right column to top row
+                side[currentRing][i] = side[i][self.size - currentRing - 1]
+            for i in range(currentRing, self.size - currentRing): #move bottom row to right column
+                side[i][self.size - currentRing - 1] = side[self.size - currentRing - 1][abs(i - (self.size - 1))]
+            for i in range(currentRing, self.size - currentRing): #move left column to bottom row
+                side[self.size - currentRing - 1][abs(i - (self.size - 1))] = side[abs(i - (self.size - 1))][currentRing]
+            j = 0 #move copy of top row to left column
+            for i in range(currentRing, self.size - currentRing):
+                side[abs(i - (self.size - 1))][currentRing] = topRowCopy[j]
+                j += 1
+            currentRing += 1
+
     def rotateAdjacentSideNeg(self, side):
         currentRing = 0
         while currentRing < self.size // 2:
-            # currentTopToRotate = side[currentRing][currentRing:self.size - currentRing]
-            # currentBottomToRotate = side[self.size - currentRing - 1][currentRing:self.size - currentRing]
-            currentTopToRotate = []
+            topRowCopy = []
+            for i in range(currentRing, self.size - currentRing): #temporary storing of top row
+                topRowCopy.append(side[currentRing][i])
+            for i in range(currentRing, self.size - currentRing): #move left column to top row
+                side[currentRing][i] = side[abs(i - (self.size - 1))][currentRing]
+            for i in range(currentRing, self.size - currentRing): #move bottom row to left column
+                side[i][currentRing] = side[self.size - currentRing - 1][i]
+            for i in range(currentRing, self.size - currentRing): #move right column to bottom row
+                side[self.size - currentRing - 1][i] = side[abs(i - (self.size - 1))][self.size - currentRing - 1]
+            j = 0 #move copy of top row to right column...
             for i in range(currentRing, self.size - currentRing):
-                currentTopToRotate.append(side[currentRing][i])
-            print("currentTopToRotate", currentTopToRotate)
-            currentBottomToRotate = []
-            for i in range(currentRing, self.size - currentRing):
-                currentBottomToRotate.append(side[self.size - currentRing - 1][i])
-            print("currentBottomToRotate", currentBottomToRotate)
-            currentLeftToRotate = []
-            for i in range(currentRing, self.size - currentRing):
-                currentLeftToRotate.append(side[abs(i - (self.size - 1))][currentRing])
-            print("currentLeftToRotate", currentLeftToRotate)
-            currentRightToRotate = []
-            for i in range(currentRing, self.size - currentRing):
-                currentRightToRotate.append(side[abs(i - (self.size - 1))][self.size - currentRing - 1])
-            print("currentRightToRotate", currentRightToRotate)
-            for i in range(currentRing, self.size - currentRing):
-                currentRow = side[i][currentRing:self.size - currentRing]
-                print(currentRow)
+                side[i][self.size - currentRing - 1] = topRowCopy[j]
+                j += 1
             currentRing += 1
 
     def rotateXLeft(self, row):
-        if row == 0: #Need to add adjacent side rotation...
-            bottomReversed = self.bottom[abs(self.size - 1 - row)].copy()
-            bottomReversed.reverse()
-            self.bottom[abs(self.size - 1 - row)] = self.left[row].copy()
-            self.left[row] = self.top[row].copy()
-            self.top[row] = self.right[row].copy()
-            self.right[row] = bottomReversed
+        bottomReversed = self.bottom[abs(self.size - 1 - row)].copy()
+        bottomReversed.reverse()
+        self.bottom[abs(self.size - 1 - row)] = self.left[row].copy()
+        self.bottom[abs(self.size - 1 - row)].reverse()
+        self.left[row] = self.top[row].copy()
+        self.top[row] = self.right[row].copy()
+        self.right[row] = bottomReversed
+        if row == 0:
             self.rotateAdjacentSideNeg(self.back)
-        elif row == self.size - 1: #Need to add adjacent side rotation...
-            bottomReversed = self.bottom[abs(self.size - 1 - row)].copy()
-            bottomReversed.reverse()
-            self.bottom[abs(self.size - 1 - row)] = self.left[row].copy()
-            self.left[row] = self.top[row].copy()
-            self.top[row] = self.right[row].copy()
-            self.right[row] = bottomReversed
-        else:
-            bottomReversed = self.bottom[abs(self.size - 1 - row)].copy()
-            bottomReversed.reverse()
-            self.bottom[abs(self.size - 1 - row)] = self.left[row].copy()
-            self.left[row] = self.top[row].copy()
-            self.top[row] = self.right[row].copy()
-            self.right[row] = bottomReversed
+        if row == self.size - 1:
+            self.rotateAdjacentSidePos(self.front)
+
+    def rotateXRight(self, row):
+        bottomReversed = self.bottom[abs(self.size - 1 - row)].copy()
+        bottomReversed.reverse()
+        self.bottom[abs(self.size - 1 - row)] = self.right[row].copy()
+        self.bottom[abs(self.size - 1 - row)].reverse()
+        self.right[row] = self.top[row].copy()
+        self.top[row] = self.left[row].copy()
+        self.left[row] = bottomReversed
+        if row == 0:
+            self.rotateAdjacentSidePos(self.back)
+        if row == self.size - 1:
+            self.rotateAdjacentSideNeg(self.front)
+
+    def rotateYUp(self, column):
+        bottomColumnCopy = []
+        for i in range(self.size):
+            bottomColumnCopy.append(self.bottom[i][column])
+        for i in range(self.size):
+            self.bottom[i][column] = self.back[i][column]
+            self.back[i][column] = self.top[i][column]
+            self.top[i][column] = self.front[i][column]
+            self.front[i][column] = bottomColumnCopy[i]
+        if column == 0:
+            self.rotateAdjacentSidePos(self.left)
+        if column == self.size - 1:
+            self.rotateAdjacentSideNeg(self.right)
+
+    def rotateYDown(self, column):
+        bottomColumnCopy = []
+        for i in range(self.size):
+            bottomColumnCopy.append(self.bottom[i][column])
+        for i in range(self.size):
+            self.bottom[i][column] = self.front[i][column]
+            self.front[i][column] = self.top[i][column]
+            self.top[i][column] = self.back[i][column]
+            self.back[i][column] = bottomColumnCopy[i]
+        if column == 0:
+            self.rotateAdjacentSideNeg(self.left)
+        if column == self.size - 1:
+            self.rotateAdjacentSidePos(self.right)
+
+    def rotateZPos(self, row):
+        frontRowCopy = []
+        for i in range(self.size):
+            frontRowCopy.append(self.front[row][i])
+        for i in range(self.size):
+            self.front[row][i] = self.left[i][abs(row - (self.size - 1))]
+            self.left[i][abs(row - (self.size - 1))] = self.back[abs(row - (self.size - 1))][abs(i - (self.size - 1))]
+            self.back[abs(row - (self.size - 1))][abs(i - (self.size - 1))] = self.right[abs(i - (self.size - 1))][row]
+            self.right[abs(i - (self.size - 1))][row] = frontRowCopy[i]
+        if row == 0:
+            self.rotateAdjacentSidePos(self.top)
+        if row == self.size - 1:
+            self.rotateAdjacentSideNeg(self.bottom)
+
+    def rotateZNeg(self, row):
+        frontRowCopy = []
+        for i in range(self.size):
+            frontRowCopy.append(self.front[row][i])
+        for i in range(self.size):
+            self.front[row][i] = self.right[abs(i - (self.size - 1))][row]
+            self.right[abs(i - (self.size - 1))][row] = self.back[abs(row - (self.size - 1))][abs(i - (self.size - 1))]
+            self.back[abs(row - (self.size - 1))][abs(i - (self.size - 1))] = self.left[i][abs(row - (self.size - 1))]
+            self.left[i][abs(row - (self.size - 1))] = frontRowCopy[i]
+        if row == 0:
+            self.rotateAdjacentSideNeg(self.top)
+        if row == self.size - 1:
+            self.rotateAdjacentSidePos(self.bottom)
 
     def mixUpCube(self):
         print("Currently editing TOP positions. Please input new positions from left to right, top to bottom (enter \"\\s\" to skip this position, enter \"\\n\" to skip to next side, enter \"\\q\" to stop editing completely)...")
@@ -221,6 +283,21 @@ class rubiksCube:
                 return False
         return True
 
+    def isSameAs(self, other):
+        if self.top == other.top and self.bottom == other.bottom and self.front == other.front \
+        and self.left == other.left and self.back == other.back and self.right == other.right:
+            return True
+        return False
+
+    def copyCube(self, other):
+        for i in range(self.size):
+            other.top[i] = self.top[i].copy()
+            other.bottom[i] = self.bottom[i].copy()
+            other.front[i] = self.front[i].copy()
+            other.left[i] = self.left[i].copy()
+            other.back[i] = self.back[i].copy()
+            other.right[i] = self.right[i].copy()
+
     def save(self, filepath):
         with open(filepath, 'w') as f:
             for i in range(self.size):
@@ -267,21 +344,18 @@ class rubiksCube:
 
     def __str__(self):
         printStr = ""
-
         for i in range(self.size):
             printStr += '  ' * self.size * 2
             for j in range(self.size):
                 printStr += str(self.bottom[i][j]) + ' '
             printStr += '  ' * self.size * 2
             printStr += '\n'
-
         for i in range(self.size):
             printStr += '  ' * self.size * 2
             for j in range(self.size):
                 printStr += str(self.back[i][j]) + ' '
             printStr += '  ' * self.size * 2
             printStr += '\n'
-
         for i in range(self.size):
             for j in range(self.size - 1, -1, -1):
                 printStr += str(self.bottom[abs(i - self.size + 1)][j]) + ' '
@@ -294,33 +368,26 @@ class rubiksCube:
             for j in range(self.size - 1, -1, -1):
                 printStr += str(self.bottom[abs(i - self.size + 1)][j]) + ' '
             printStr += '\n'
-
         for i in range(self.size):
             printStr += '  ' * self.size * 2
             for j in range(self.size):
                 printStr += str(self.front[i][j]) + ' '
             printStr += '  ' * self.size * 2
             printStr += '\n'
-
         for i in range(self.size):
             printStr += '  ' * self.size * 2
             for j in range(self.size):
                 printStr += str(self.bottom[i][j]) + ' '
             printStr += '  ' * self.size * 2
             printStr += '\n'
-
         return printStr
 
-xXx = rubiksCube(6)
-xXx.open("myCube6x6.cub")
-# print(xXx)
-# print(xXx.isSolved())
+xXx = rubiksCube(3)
+xXx.open("myCube3x3.cub")
 # xXx.mixUpCube()
 print(xXx)
-# print(xXx.isSolved())
-# xXx.open("/Users/kelly/Desktop/myCube.txt")
-# print(xXx)
-xXx.rotateXLeft(0)
+# xXx.save("myCube6x6.cub")
+# xXx.rotateYDown(0)
+# xXx.rotateYDown(1)
+xXx.rotateZNeg(2)
 print(xXx)
-# xXx.rotateXLeft(0)
-# print(xXx)
