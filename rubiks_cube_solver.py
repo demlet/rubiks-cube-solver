@@ -263,23 +263,29 @@ class rubiksCube:
         return "\nEditing Completed!"
 
     def isSolved(self): #NO GOOD. REWRITE.
+        check = self.top[0][0]
         for i in self.top:
-            if len(set(i)) > 1:
+            if set(check) != set(i):
                 return False
+        check = self.bottom[0][0]
         for i in self.bottom:
-            if len(set(i)) > 1:
+            if set(check) != set(i):
                 return False
+        check = self.front[0][0]
         for i in self.front:
-            if len(set(i)) > 1:
+            if set(check) != set(i):
                 return False
+        check = self.left[0][0]
         for i in self.left:
-            if len(set(i)) > 1:
+            if set(check) != set(i):
                 return False
+        check = self.back[0][0]
         for i in self.back:
-            if len(set(i)) > 1:
+            if set(check) != set(i):
                 return False
+        check = self.right[0][0]
         for i in self.right:
-            if len(set(i)) > 1:
+            if set(check) != set(i):
                 return False
         return True
 
