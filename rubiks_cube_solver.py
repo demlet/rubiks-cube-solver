@@ -262,7 +262,7 @@ class rubiksCube:
 
         return "\nEditing Completed!"
 
-    def isSolved(self): #NO GOOD. REWRITE.
+    def isSolved(self):
         check = self.top[0][0]
         for i in self.top:
             if set(check) != set(i):
