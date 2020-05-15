@@ -157,106 +157,172 @@ class rubiksCube:
             self.rotateAdjacentSidePos(self.bottom)
 
     def mixUpCube(self):
-        print("Currently editing TOP positions. Please input new positions from left to right, top to bottom (enter \"\\s\" to skip this position, enter \"\\n\" to skip to next side, enter \"\\q\" to stop editing completely)...")
+        positCount = 0
+        print("Currently editing TOP positions.\nPlease input new positions as a single character from left to right, top to bottom (enter \"\\s\" to skip this position, enter \"\\n\" to skip to next side, enter \"\\q\" to stop editing completely)...\n")
         for i in range(self.size):
             for j in range(self.size):
-                if i == 0 and j == 0:
-                    newPosition = input("Enter new top left position: ")
-                elif i == self.size - 1 and j == self.size - 1:
-                    newPosition = input("Enter final bottom right position: ")
-                else:
-                    newPosition = input("Enter next position: ")
+                newPosition = ""
+                while newPosition == "":
+                    if i == 0 and j == 0:
+                        newPosition = input("Enter new top left position (%d): " % positCount)
+                    elif i == self.size - 1 and j == self.size - 1:
+                        newPosition = input("Enter final bottom right position (%d): " % positCount)
+                    else:
+                        newPosition = input("Enter next position (%d): " % positCount)
+                    if len(newPosition) > 1 and (newPosition != '\\s' and newPosition != '\\n' and newPosition != '\\q'):
+                        print("\nTHAT WAS NOT A VALID INPUT...\n\nCurrently editing TOP positions.\nPlease input new positions as a single character from left to right, top to bottom (enter \"\\s\" to skip this position, enter \"\\n\" to skip to next side, enter \"\\q\" to stop editing completely)...\n")
+                        newPosition = ""
+                    elif newPosition == "\\n":
+                        break
+                    elif newPosition == "\\q":
+                        return "\nEditing Completed!"
+                    elif newPosition == "\s":
+                        positCount += 1
+                    else:
+                        self.top[i][j] = newPosition
+                        positCount += 1
                 if newPosition == "\\n":
                     break
-                if newPosition == "\\q":
-                    return "\nEditing Completed!"
-                if newPosition != "\s":
-                    self.top[i][j] = newPosition
             if newPosition == "\\n":
                 break
-        print("\nCurrently editing BOTTOM positions. Please input new positions from left to right, top to bottom (enter \"\\s\" to skip this position, enter \"\\n\" to skip to next side, enter \"\\q\" to stop editing completely)...")
+        print("\nCurrently editing BOTTOM positions.\nPlease input new positions as a single character from left to right, top to bottom (enter \"\\s\" to skip this position, enter \"\\n\" to skip to next side, enter \"\\q\" to stop editing completely)...\n")
+        positCount = 0
         for i in range(self.size):
             for j in range(self.size):
-                if i == 0 and j == 0:
-                    newPosition = input("Enter new top left position: ")
-                elif i == self.size - 1 and j == self.size - 1:
-                    newPosition = input("Enter final bottom right position: ")
-                else:
-                    newPosition = input("Enter next position: ")
+                newPosition = ""
+                while newPosition == "":
+                    if i == 0 and j == 0:
+                        newPosition = input("Enter new top left position (%d): " % positCount)
+                    elif i == self.size - 1 and j == self.size - 1:
+                        newPosition = input("Enter final bottom right position (%d): " % positCount)
+                    else:
+                        newPosition = input("Enter next position (%d): " % positCount)
+                    if len(newPosition) > 1 and (newPosition != '\\s' and newPosition != '\\n' and newPosition != '\\q'):
+                        print("\nTHAT WAS NOT A VALID INPUT...\n\nCurrently editing BOTTOM positions.\nPlease input new positions as a single character from left to right, top to bottom (enter \"\\s\" to skip this position, enter \"\\n\" to skip to next side, enter \"\\q\" to stop editing completely)...\n")
+                        newPosition = ""
+                    elif newPosition == "\\n":
+                        break
+                    elif newPosition == "\\q":
+                        return "\nEditing Completed!"
+                    elif newPosition == "\s":
+                        positCount += 1
+                    else:
+                        self.bottom[i][j] = newPosition
+                        positCount += 1
                 if newPosition == "\\n":
                     break
-                if newPosition == "\\q":
-                    return "\nEditing Completed!"
-                if newPosition != "\s":
-                    self.bottom[i][j] = newPosition
             if newPosition == "\\n":
                 break
-        print("\nCurrently editing FRONT positions. Please input new positions from left to right, top to bottom (enter \"\\s\" to skip this position, enter \"\\n\" to skip to next side, enter \"\\q\" to stop editing completely)...")
+        print("\nCurrently editing FRONT positions.\nPlease input new positions as a single character from left to right, top to bottom (enter \"\\s\" to skip this position, enter \"\\n\" to skip to next side, enter \"\\q\" to stop editing completely)...\n")
+        positCount = 0
         for i in range(self.size):
             for j in range(self.size):
-                if i == 0 and j == 0:
-                    newPosition = input("Enter new top left position: ")
-                elif i == self.size - 1 and j == self.size - 1:
-                    newPosition = input("Enter final bottom right position: ")
-                else:
-                    newPosition = input("Enter next position: ")
+                newPosition = ""
+                while newPosition == "":
+                    if i == 0 and j == 0:
+                        newPosition = input("Enter new top left position (%d): " % positCount)
+                    elif i == self.size - 1 and j == self.size - 1:
+                        newPosition = input("Enter final bottom right position (%d): " % positCount)
+                    else:
+                        newPosition = input("Enter next position (%d): " % positCount)
+                    if len(newPosition) > 1 and (newPosition != '\\s' and newPosition != '\\n' and newPosition != '\\q'):
+                        print("\nTHAT WAS NOT A VALID INPUT...\n\nCurrently editing FRONT positions.\nPlease input new positions as a single character from left to right, top to bottom (enter \"\\s\" to skip this position, enter \"\\n\" to skip to next side, enter \"\\q\" to stop editing completely)...\n")
+                        newPosition = ""
+                    elif newPosition == "\\n":
+                        break
+                    elif newPosition == "\\q":
+                        return "\nEditing Completed!"
+                    elif newPosition == "\s":
+                        positCount += 1
+                    else:
+                        self.front[i][j] = newPosition
+                        positCount += 1
                 if newPosition == "\\n":
                     break
-                if newPosition == "\\q":
-                    return "\nEditing Completed!"
-                if newPosition != "\s":
-                    self.front[i][j] = newPosition
             if newPosition == "\\n":
                 break
-        print("\nCurrently editing LEFT positions. Please input new positions from left to right, top to bottom (enter \"\\s\" to skip this position, enter \"\\n\" to skip to next side, enter \"\\q\" to stop editing completely)...")
+        print("\nCurrently editing LEFT positions.\nPlease input new positions as a single character from left to right, top to bottom (enter \"\\s\" to skip this position, enter \"\\n\" to skip to next side, enter \"\\q\" to stop editing completely)...\n")
+        positCount = 0
         for i in range(self.size):
             for j in range(self.size):
-                if i == 0 and j == 0:
-                    newPosition = input("Enter new top left position: ")
-                elif i == self.size - 1 and j == self.size - 1:
-                    newPosition = input("Enter final bottom right position: ")
-                else:
-                    newPosition = input("Enter next position: ")
+                newPosition = ""
+                while newPosition == "":
+                    if i == 0 and j == 0:
+                        newPosition = input("Enter new top left position (%d): " % positCount)
+                    elif i == self.size - 1 and j == self.size - 1:
+                        newPosition = input("Enter final bottom right position (%d): " % positCount)
+                    else:
+                        newPosition = input("Enter next position (%d): " % positCount)
+                    if len(newPosition) > 1 and (newPosition != '\\s' and newPosition != '\\n' and newPosition != '\\q'):
+                        print("\nTHAT WAS NOT A VALID INPUT...\nCurrently editing LEFT positions.\nPlease input new positions as a single character from left to right, top to bottom (enter \"\\s\" to skip this position, enter \"\\n\" to skip to next side, enter \"\\q\" to stop editing completely)...\n")
+                        newPosition = ""
+                    elif newPosition == "\\n":
+                        break
+                    elif newPosition == "\\q":
+                        return "\nEditing Completed!"
+                    elif newPosition == "\s":
+                        positCount += 1
+                    else:
+                        self.left[i][j] = newPosition
+                        positCount += 1
                 if newPosition == "\\n":
                     break
-                if newPosition == "\\q":
-                    return "\nEditing Completed!"
-                if newPosition != "\s":
-                    self.left[i][j] = newPosition
             if newPosition == "\\n":
                 break
-        print("\nCurrently editing BACK positions. Please input new positions from left to right, top to bottom (enter \"\\s\" to skip this position, enter \"\\n\" to skip to next side, enter \"\\q\" to stop editing completely)...")
+        print("\nCurrently editing BACK positions.\nPlease input new positions as a single character from left to right, top to bottom (enter \"\\s\" to skip this position, enter \"\\n\" to skip to next side, enter \"\\q\" to stop editing completely)...\n")
+        positCount = 0
         for i in range(self.size):
             for j in range(self.size):
-                if i == 0 and j == 0:
-                    newPosition = input("Enter new top left position: ")
-                elif i == self.size - 1 and j == self.size - 1:
-                    newPosition = input("Enter final bottom right position: ")
-                else:
-                    newPosition = input("Enter next position: ")
+                newPosition = ""
+                while newPosition == "":
+                    if i == 0 and j == 0:
+                        newPosition = input("Enter new top left position (%d): " % positCount)
+                    elif i == self.size - 1 and j == self.size - 1:
+                        newPosition = input("Enter final bottom right position (%d): " % positCount)
+                    else:
+                        newPosition = input("Enter next position (%d): " % positCount)
+                    if len(newPosition) > 1 and (newPosition != '\\s' and newPosition != '\\n' and newPosition != '\\q'):
+                        print("\nTHAT WAS NOT A VALID INPUT...\nCurrently editing BACK positions.\nPlease input new positions as a single character from left to right, top to bottom (enter \"\\s\" to skip this position, enter \"\\n\" to skip to next side, enter \"\\q\" to stop editing completely)...\n")
+                        newPosition = ""
+                    elif newPosition == "\\n":
+                        break
+                    elif newPosition == "\\q":
+                        return "\nEditing Completed!"
+                    elif newPosition == "\s":
+                        positCount += 1
+                    else:
+                        self.back[i][j] = newPosition
+                        positCount += 1
                 if newPosition == "\\n":
                     break
-                if newPosition == "\\q":
-                    return "\nEditing Completed!"
-                if newPosition != "\s":
-                    self.back[i][j] = newPosition
             if newPosition == "\\n":
                 break
-        print("\nCurrently editing RIGHT positions. Please input new positions from left to right, top to bottom (enter \"\\s\" to skip this position, enter \"\\n\" to skip to next side, enter \"\\q\" to stop editing completely)...")
+        print("\nCurrently editing RIGHT positions.\nPlease input new positions as a single character from left to right, top to bottom (enter \"\\s\" to skip this position, enter \"\\n\" to skip to next side, enter \"\\q\" to stop editing completely)...\n")
+        positCount = 0
         for i in range(self.size):
             for j in range(self.size):
-                if i == 0 and j == 0:
-                    newPosition = input("Enter new top left position: ")
-                elif i == self.size - 1 and j == self.size - 1:
-                    newPosition = input("Enter final bottom right position: ")
-                else:
-                    newPosition = input("Enter next position: ")
+                newPosition = ""
+                while newPosition == "":
+                    if i == 0 and j == 0:
+                        newPosition = input("Enter new top left position (%d): " % positCount)
+                    elif i == self.size - 1 and j == self.size - 1:
+                        newPosition = input("Enter final bottom right position (%d): " % positCount)
+                    else:
+                        newPosition = input("Enter next position (%d): " % positCount)
+                    if len(newPosition) > 1 and (newPosition != '\\s' and newPosition != '\\n' and newPosition != '\\q'):
+                        print("\nTHAT WAS NOT A VALID INPUT...\nCurrently editing RIGHT positions.\nPlease input new positions as a single character from left to right, top to bottom (enter \"\\s\" to skip this position, enter \"\\n\" to skip to next side, enter \"\\q\" to stop editing completely)...\n")
+                        newPosition = ""
+                    elif newPosition == "\\n":
+                        break
+                    elif newPosition == "\\q":
+                        return "\nEditing Completed!"
+                    elif newPosition == "\s":
+                        positCount += 1
+                    else:
+                        self.right[i][j] = newPosition
+                        positCount += 1
                 if newPosition == "\\n":
                     break
-                if newPosition == "\\q":
-                    return "\nEditing Completed!"
-                if newPosition != "\s":
-                    self.right[i][j] = newPosition
             if newPosition == "\\n":
                 break
 
@@ -304,7 +370,7 @@ class rubiksCube:
             other.back[i] = self.back[i].copy()
             other.right[i] = self.right[i].copy()
 
-    def save(self, filepath):
+    def exportCube(self, filepath):
         with open(filepath, 'w') as f:
             for i in range(self.size):
                 for j in range(self.size):
@@ -326,7 +392,7 @@ class rubiksCube:
                     f.writelines(self.right[i][j] + '\n')
             f.close
 
-    def open(self, filepath):
+    def importCube(self, filepath):
         with open(filepath, 'r') as f:
             for i in range(self.size):
                 for j in range(self.size):
@@ -389,11 +455,12 @@ class rubiksCube:
         return printStr
 
 xXx = rubiksCube(3)
-xXx.open("myCube3x3.cub")
-# xXx.mixUpCube()
+xXx.importCube("myCube3x3.cub")
+print(xXx)
+xXx.mixUpCube()
 print(xXx)
 # xXx.save("myCube6x6.cub")
 # xXx.rotateYDown(0)
 # xXx.rotateYDown(1)
-xXx.rotateZNeg(2)
-print(xXx)
+# xXx.rotateZNeg(2)
+# print(xXx)
