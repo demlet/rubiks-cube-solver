@@ -454,11 +454,11 @@ class rubiksCube:
             printStr += '\n'
         return printStr
 
-xXx = rubiksCube(3)
-xXx.importCube("myCube3x3.cub")
-print(xXx)
-xXx.mixUpCube()
-print(xXx)
+# xXx = rubiksCube(3)
+# xXx.importCube("myCube3x3.cub")
+# print(xXx)
+# xXx.mixUpCube()
+# print(xXx)
 # xXx.save("myCube6x6.cub")
 # xXx.rotateYDown(0)
 # xXx.rotateYDown(1)
