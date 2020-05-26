@@ -1,2 +1,2 @@
 # rubiks-cube-solver
-It solves a Rubik's Cube.
+It tries to solve a Rubik's Cube.
